@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muresten Shop</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0f1220;
+      color: white;
+    }
+    header {
+      background: #1c1f36;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 span { color: #7aa2ff; }
+    nav a, nav button {
+      background: #2a2e52;
+      border: none;
+      padding: 10px 16px;
+      margin: 4px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    nav a:hover, nav button:hover { background: #3a4180; }
+    .wrap { max-width: 900px; margin: auto; padding: 20px; }
+    .products button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 12px;
+      background: #2a2e52;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .products button:hover { background: #3a4180; }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: #1c1f36;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+    }
+    .modal-content h2 { margin-top: 0; }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    .close {
+      float: right;
+      cursor: pointer;
+      color: #aaa;
+    }
+    .close:hover { color: white; }
+    .payment-box {
+      text-align: center;
+      background: #1c1f36;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .payment-box h2 { font-size: 28px; color: #7aa2ff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Muresten <span>Shop</span></h1>
+    <nav>
+      <a href="#produkter">Produkter</a>
+      <a href="#faq">FAQ</a>
+      <button id="openTicketBtn">Åbn en ticket</button>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section id="produkter">
+      <h2>Produkter</h2>
+      <div class="products">
+        <button onclick="openPayment('TikTok')">TikTok</button>
+        <button onclick="openPayment('Instagram')">Instagram</button>
+        <button onclick="openPayment('Facebook')">Facebook</button>
+        <button onclick="openPayment('Spotify')">Spotify</button>
+        <button onclick="openPayment('Telegram')">Telegram</button>
+        <button onclick="openPayment('Discord')">Discord</button>
+        <button onclick="openPayment('Snapchat')">Snapchat</button>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <p>Welcome to muresten shop. Here you can buy Insta, TikTok, Facebook, Snapchat, Spotify, Telegram and Discord members.</p>
+    </section>
+  </main>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePayment()">&times;</span>
+      <div class="payment-box">
+        <h2>Betal med MobilePay</h2>
+        <p style="font-size:22px; font-weight:bold;">9765ty</p>
+        <p>Lav derefter en ticket – vi svarer så hurtigt som muligt, så du kan få din ting.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket Modal -->
+  <div id="ticketModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeTicket()">&times;</span>
+      <h2>Åbn en ticket</h2>
+      <input type="email" id="email" placeholder="Din e-mail" />
+      <input type="text" id="problem" placeholder="Problem" />
+      <textarea id="solution" placeholder="Hvordan vi skal løse det"></textarea>
+      <button onclick="sendTicket()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const paymentModal = document.getElementById('paymentModal');
+    const ticketModal = document.getElementById('ticketModal');
+    const openTicketBtn = document.getElementById('openTicketBtn');
+
+    function openPayment(product) {
+      paymentModal.style.display = 'flex';
+    }
+    function closePayment() {
+      paymentModal.style.display = 'none';
+    }
+    openTicketBtn.onclick = () => { ticketModal.style.display = 'flex'; }
+    function closeTicket() {
+      ticketModal.style.display = 'none';
+    }
+
+    async function sendTicket() {
+      const email = document.getElementById('email').value;
+      const problem = document.getElementById('problem').value;
+      const solution = document.getElementById('solution').value;
+
+      const webhookUrl = "https://discord.com/api/webhooks/1407054592851710012/xH1RQ1yVrj5suWG7icT-hTTyi_BQO-cMxgxdegsl9Uxf8Pg3MCobD37_rWfM5eEg_RDS";
+
+      const content = {
+        username: "Muresten Shop",
+        embeds: [
+          {
+            title: "Ny Ticket",
+            color: 5814783,
+            fields: [
+              { name: "Email", value: email || "Ikke udfyldt" },
+              { name: "Problem", value: problem || "Ikke udfyldt" },
+              { name: "Forslag til løsning", value: solution || "Ikke udfyldt" }
+            ],
+            footer: { text: "Muresten Shop Ticket System" },
+            timestamp: new Date()
+          }
+        ]
+      };
+
+      try {
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(content)
+        });
+        if (res.ok) {
+          alert("Din ticket er sendt til Discord ✅");
+          closeTicket();
+        } else {
+          alert("Fejl ved afsendelse.");
+        }
+      } catch (err) {
+        alert("Kunne ikke sende ticket.");
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
