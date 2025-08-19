@@ -1,146 +1,35 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Muresten Shop</title>
+  <!-- Favicon (du kan uploade en fil der hedder favicon.png til dit repo) -->
   <link rel="icon" type="image/png" href="favicon.png">
   <style>
     body {
+      /* existing styles */
       font-family: Arial, sans-serif;
-      margin: 0;
-      background: #0f1220;
-      color: white;
     }
-    header {
-      background: #1c1f36;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    header h1 span { color: #7aa2ff; }
-    nav a, nav button {
-      background: #2a2e52;
-      border: none;
-      padding: 10px 16px;
-      margin: 4px;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    nav a:hover, nav button:hover { background: #3a4180; }
-    .wrap { max-width: 900px; margin: auto; padding: 20px; }
-    .products button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 12px;
-      background: #2a2e52;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
-    .products button:hover { background: #3a4180; }
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .modal-content {
-      background: #1c1f36;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 90%;
-      position: relative;
-    }
-    .modal-content h2 { margin-top: 0; }
-    .modal-content input, .modal-content textarea {
-      width: 100%;
-      margin: 8px 0;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 22px;
-      cursor: pointer;
-      color: #aaa;
-    }
-    .close:hover { color: white; }
-    .payment-box {
-      text-align: center;
-      background: #1c1f36;
-      padding: 20px;
-      border-radius: 12px;
-    }
-    .payment-box h2 { font-size: 28px; color: #7aa2ff; }
-    .loading {
-      font-size: 16px;
-      color: #7aa2ff;
-      margin-top: 10px;
-    }
+    /* your existing styles... */
+    /* You can add additional styles here if needed */
   </style>
 </head>
 <body>
-  <header>
-    <h1>Muresten <span>Shop</span></h1>
-    <nav>
-      <a href="#produkter">Produkter</a>
-      <a href="#faq">FAQ</a>
-      <button id="openTicketBtn">Åbn en ticket</button>
-    </nav>
-  </header>
-
-  <main class="wrap">
-    <section id="produkter">
-      <h2>Produkter</h2>
-      <div class="products">
-        <button onclick="openPayment('TikTok')">TikTok</button>
-        <button onclick="openPayment('Instagram')">Instagram</button>
-        <button onclick="openPayment('Facebook')">Facebook</button>
-        <button onclick="openPayment('Spotify')">Spotify</button>
-        <button onclick="openPayment('Telegram')">Telegram</button>
-        <button onclick="openPayment('Discord')">Discord</button>
-        <button onclick="openPayment('Snapchat')">Snapchat</button>
-      </div>
-    </section>
-
-    <section id="faq">
-      <h2>FAQ</h2>
-      <p>Welcome to muresten shop. Here you can buy Insta, TikTok, Facebook, Snapchat, Spotify, Telegram and Discord members.</p>
-    </section>
-  </main>
-
-  <!-- Payment Modal -->
-  <div id="paymentModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closePayment()">&times;</span>
-      <div class="payment-box">
-        <h2>Betal med MobilePay</h2>
-        <p style="font-size:22px; font-weight:bold;">9765ty</p>
-        <p>Lav derefter en ticket – vi svarer så hurtigt som muligt, så du kan få din ting.</p>
-      </div>
-    </div>
+  <!-- Logo and "Made by Snebber" -->
+  <div style="text-align: center; margin-top: 20px;">
+    <!-- Replace the src below with your actual logo URL -->
+    <img src="https://via.placeholder.com/100x50.png?text=Logo" alt="Logo" style="width: 100px; height: auto; display: block; margin: 0 auto;">
+    <small style="display: block; font-size: 12px; margin-top: 5px;">Made by Snebber</small>
   </div>
 
-  <!-- Ticket Modal -->
+  <!-- Rest of your existing code starts here -->
+  <h2>Åbn en ticket</h2>
   <div id="ticketModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeTicket()">&times;</span>
       <h2>Åbn en ticket</h2>
-      <input type="email" id="email" placeholder="Din e-mail" />
+      <input type="text" id="email" placeholder="E-mail" />
       <input type="text" id="problem" placeholder="Problem" />
       <textarea id="solution" placeholder="Hvordan vi skal løse det"></textarea>
       <button onclick="sendTicket()">Send</button>
@@ -148,6 +37,7 @@
     </div>
   </div>
 
+  <!-- Rest of your existing code continues here -->
   <script>
     const paymentModal = document.getElementById('paymentModal');
     const ticketModal = document.getElementById('ticketModal');
@@ -157,10 +47,11 @@
     function openPayment(product) {
       paymentModal.style.display = 'flex';
     }
+
     function closePayment() {
       paymentModal.style.display = 'none';
     }
-    openTicketBtn.onclick = () => { ticketModal.style.display = 'flex'; }
+
     function closeTicket() {
       ticketModal.style.display = 'none';
     }
@@ -186,18 +77,17 @@
       const webhookUrl = "https://discord.com/api/webhooks/1407054592851710012/xH1RQ1yVrj5suWG7icT-hTTyi_BQO-cMxgxdegsl9Uxf8Pg3MCobD37_rWfM5eEg_RDS";
 
       const content = {
-        username: "Muresten Shop",
+        username: "Ticket System",
         embeds: [
           {
             title: "Ny Ticket",
             color: 5814783,
             fields: [
-              { name: "Email", value: email },
-              { name: "Problem", value: problem },
+              { name: "Email", value: email || "Ikke udfyldt" },
+              { name: "Problem", value: problem || "Ikke udfyldt" },
               { name: "Forslag til løsning", value: solution || "Ikke udfyldt" }
             ],
-            footer: { text: "Muresten Shop Ticket System" },
-            timestamp: new Date()
+            footer: { text: "Muresten Shop Ticket System" }
           }
         ]
       };
